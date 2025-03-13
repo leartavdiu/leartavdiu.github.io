@@ -3,56 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Lab Page</title>
+    <title>Lab 3 - Responsive Web Design</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Welcome to My Page</h1>
-    <h2>About This Project</h2>
-    
-    <p>This is a simple HTML webpage. It has various elements such as headings, lists, tables, images, and links.</p>
-    
-    <h2>My Hobbies</h2>
-    <ul>
-        <li>Coding</li>
-        <li>Gaming</li>
-        <li>Listening to music</li>
-    </ul>
-    
-    <h2>Lab Links</h2>
-    <p>Check out my <a href="https://leartavdiu.github.io/">Lab 1</a>.</p>
-    
-    <h2>My Recent CS Courses</h2>
-    <table border="1">
-        <tr>
-            <th>Topic</th>
-            <th>Status</th>
-        </tr>
-        <tr>
-            <td>Introduction to CS</td>
-            <td>Completed</td>
-        </tr>
-        <tr>
-            <td>Intermediate Programming</td>
-            <td>Completed</td>
-        </tr>
-        <tr>
-          <td>Data Structures</td>
-          <td>Completed</td>
-          <tr>
-            <td>Web Development</td>
-            <td>In Progress</td>
-          </tr>
-        </tr>
-    </table>
-    
-    <h2>Image Example</h2>
-<img src="https://codingweek.org/wp-content/uploads/2023/09/chris-ried-ieic5Tq8YMk-unsplash-scaled.jpg" 
-     width="300" 
-     height="300" 
-     alt="Coding Image">
-<hr>
 
-    <hr>
-    <p>Created by Leart Avdiu - 2025</p>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">My Website</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="lab3.html">Lab 3</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-primary text-white text-center py-5">
+        <h1>Welcome to My Lab 3</h1>
+        <h2>Exploring Responsive Web Design</h2>
+    </header>
+
+    <div class="container mt-4">
+        <p>This page showcases a simple responsive web design using Bootstrap.</p>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>My Hobbies</h3>
+                <ul class="list-group">
+                    <li class="list-group-item">Coding</li>
+                    <li class="list-group-item">Gaming</li>
+                    <li class="list-group-item">Listening to Music</li>
+                </ul>
+            </div>
+            <div class="col-md-6 text-center">
+                <h3>Image Example</h3>
+                <img src="https://codingweek.org/wp-content/uploads/2023/09/chris-ried-ieic5Tq8YMk-unsplash-scaled.jpg" 
+                     class="img-fluid rounded" 
+                     alt="Coding Image" width="300">
+            </div>
+        </div>
+
+        <hr>
+        <p class="text-center">Created by Leart Avdiu - 2025</p>
+    </div>
+
 </body>
 </html>
