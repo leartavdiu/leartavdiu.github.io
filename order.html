@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordering Website</title>
+    <script>
+        window.onload = function() {
+            alert("Welcome to our store!");
+            
+            let customerName = prompt("Enter your name:");
+            let itemRequested = prompt("Enter the item you want to order:");
+            let quantity = parseInt(prompt("Enter quantity (1-99):"));
+            
+            while (isNaN(quantity) || quantity < 1 || quantity > 99) {
+                quantity = parseInt(prompt("Invalid quantity. Please enter a number between 1 and 99:"));
+            }
+            
+            let today = new Date();
+            let arrivalDate = new Date();
+            arrivalDate.setDate(today.getDate() + 7);
+            let formattedArrival = arrivalDate.toDateString();
+            
+            let hours = today.getHours();
+            let greeting = "Good Morning";
+            if (hours >= 12 && hours < 18) {
+                greeting = "Good Afternoon";
+            } else if (hours >= 18) {
+                greeting = "Good Evening";
+            }
+            
+            document.getElementById("greeting").innerText = `${greeting} ${customerName}, Thank you for ordering!`;
+            document.getElementById("orderDetails").innerHTML = 
+                `<p>Item Ordered: <strong>${itemRequested}</strong></p>` +
+                `<p>Quantity: <strong>${quantity}</strong></p>` +
+                `<p>Expected Arrival Date: <strong>${formattedArrival}</strong></p>`;
+        };
+    </script>
+</head>
+<body>
+    <h1>Welcome to Our Store</h1>
+    <h2 id="greeting"></h2>
+    <div id="orderDetails"></div>
+</body>
+</html>
