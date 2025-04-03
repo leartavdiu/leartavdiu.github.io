@@ -38,23 +38,40 @@
             <td>Completed</td>
         </tr>
         <tr>
-          <td>Data Structures</td>
-          <td>Completed</td>
-          <tr>
+            <td>Data Structures</td>
+            <td>Completed</td>
+        </tr>
+        <tr>
             <td>Web Development</td>
             <td>In Progress</td>
-          </tr>
         </tr>
     </table>
-    
+
     <h2>Image Example</h2>
-<img src="https://codingweek.org/wp-content/uploads/2023/09/chris-ried-ieic5Tq8YMk-unsplash-scaled.jpg" 
-     width="300" 
-     height="300" 
-     alt="Coding Image">
-<hr>
+    <img id="catImage" 
+         src="https://codingweek.org/wp-content/uploads/2023/09/chris-ried-ieic5Tq8YMk-unsplash-scaled.jpg" 
+         width="300" 
+         height="300" 
+         alt="Coding Image">
+
+    <br><br>
+
+    <button onclick="loadCatFacts()">Load Cat Facts</button>
+
+    <h2>Cat Facts Table</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>factId</th>
+                <th>fact</th>
+            </tr>
+        </thead>
+        <tbody id="factsTable"></tbody>
+    </table>
 
     <hr>
     <p>Created by Leart Avdiu - 2025</p>
+
+    <script src="script.js"></script>
 </body>
 </html>
