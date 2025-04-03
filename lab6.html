@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lab 6 - Cat Facts</title>
+</head>
+<body>
+  <h1>Lab 6: Rest API on Cat Facts</h1>
+
+  <p>Click the button below for cat facts and a picture of a cat!</p>
+
+  <img id="catImage" 
+       src="https://cdn.pixabay.com/photo/2018/05/04/16/50/cat-3374422_1280.jpg" 
+       width="400" 
+       height="auto" 
+       alt="Cat Image">
+
+  <br><br>
+
+  <button onclick="loadCatFacts()">Load Cat Facts</button>
+
+  <h2>Cat Facts Table</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>factId</th>
+        <th>text</th>
+      </tr>
+    </thead>
+    <tbody id="factsTable"></tbody>
+  </table>
+
+  <hr>
+  <p><a href="index.html">Back to Main Page</a></p>
+  <p>Created by Leart Avdiu - 2025</p>
+
+  <script src="lab6.js"></script>
+</body>
+</html>
