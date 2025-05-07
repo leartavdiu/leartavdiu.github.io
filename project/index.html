@@ -1,0 +1,75 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quran Navigator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Open Sans', sans-serif; background-color: #f7f7f7; color: #333; }
+    h1 { font-family: 'Roboto', sans-serif; margin-bottom: 20px; }
+    .surah-card { border: 1px solid #ddd; border-radius: 8px; background-color: #fff; padding: 20px; margin-bottom: 20px; transition: all 0.3s ease; }
+    .surah-card:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+    .btn-load { background-color: #0056b3; color: white; font-weight: bold; }
+    .btn-load:hover { background-color: #004085; }
+    .footer { text-align: center; margin-top: 40px; padding: 20px 0; background-color: #0056b3; color: white; }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center">Quran Navigator</h1>
+    <button id="load-surahs" onclick="loadSurahs()" class="btn btn-load mt-3">Load Surahs List</button>
+    <div id="surahs-list" class="row mt-4"></div>
+  </div>
+  <div class="footer">
+    <p>&copy; 2025 Online Quran API Project. All Rights Reserved.</p>
+  </div>
+  <script>
+    // api configuration
+    const apiKey = "5b631a2cf0msh65cb8ee0fe94bb5p19adcajsn0e2a5b1180a9";
+    const apiHost = "online-quran-api.p.rapidapi.com";
+    const surahsListUrl = "https://online-quran-api.p.rapidapi.com/surahs";
+
+    // fetch the list of surahs
+    function loadSurahs() {
+      fetch(surahsListUrl, {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': apiKey,
+          'x-rapidapi-host': apiHost
+        }
+      })
+      .then(res => res.json())
+      .then(result => {
+        // check if the response has a valid list
+        if (result && result.surahList && Array.isArray(result.surahList)) {
+          displaySurahs(result.surahList);
+        }
+      });
+    }
+
+    // display surah cards in the page
+    function displaySurahs(surahsData) {
+      const surahsListDiv = document.getElementById('surahs-list');
+      surahsListDiv.innerHTML = "";
+      surahsData.forEach(surah => {
+        const surahCard = `
+          <div class="col-md-4">
+            <div class="card surah-card">
+              <div class="card-header">
+                Surah ${surah.number}: ${surah.name}
+              </div>
+              <div class="card-body">
+                <p><strong>Bangla:</strong> ${surah.bangla}</p>
+                <a href="details.html?name=${encodeURIComponent(surah.name)}" class="btn btn-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        `;
+        surahsListDiv.innerHTML += surahCard;
+      });
+    }
+  </script>
+</body>
+</html>
