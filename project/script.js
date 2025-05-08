@@ -1,41 +1,41 @@
-// api credentials for rapidapi
-const apiKey = "5b631a2cf0msh65cb8ee0fe94bb5p19adcajsn0e2a5b1180a9";
-const apiHost = "online-quran-api.p.rapidapi.com";
-const surahsListUrl = "https://online-quran-api.p.rapidapi.com/surahs";
+const apiKey = "5b631a2cf0msh65cb8ee0fe94bb5p19adcajsn0e2a5b1180a9"; 
+const apiHost = "online-quran-api.p.rapidapi.com"; 
+const surahsListUrl = "https://online-quran-api.p.rapidapi.com/surahs"; 
 
-// fetch and display all surahs (used on index.html)
+// array to store surahs
+let allSurahs = [];
+
+// this function talks to the API and gets the list of surahs
 function loadSurahs() {
   fetch(surahsListUrl, {
-    method: 'GET',
+    method: 'GET', 
     headers: {
-      'x-rapidapi-key': apiKey,
-      'x-rapidapi-host': apiHost
+      'x-rapidapi-key': apiKey, // sends api key to get access
+      'x-rapidapi-host': apiHost // tells rapidapi which API im using
     }
   })
-  .then(response => response.json())
+  .then(response => response.json()) // turns response into real JavaScript object
   .then(result => {
-    // check if the data is valid
+    // makes sure result has a surahList array
     if (result && result.surahList && Array.isArray(result.surahList)) {
-      displaySurahs(result.surahList);
-    } else {
-      alert("No Surahs found.");
-      console.error("Invalid response:", result);
+      allSurahs = result.surahList; // saves it in the global variable
+      displaySurahs(allSurahs); // calls the function to actually show the surahs
     }
   })
   .catch(error => {
     alert("Error loading Surahs: " + error.message);
-    console.error(error);
+    console.error(error); 
   });
 }
 
-// create and insert surah cards into the page
+// this function takes surah data and puts it into HTML cards
 function displaySurahs(surahsData) {
-  const surahsListDiv = document.getElementById('surahs-list');
-  surahsListDiv.innerHTML = ""; // clear previous content
+  const surahsListDiv = document.getElementById('surahs-list'); // finds the div where surahs will go
+  surahsListDiv.innerHTML = ""; // clears it out first so it doesn't duplicate
 
-  surahsData.forEach(surah => {
+  surahsData.forEach(surah => { // loops through each surah
     const surahCard = `
-      <div class="col-md-4">
+      <div class="col-md-4"> <!-- makes a 3-column layout using Bootstrap -->
         <div class="card surah-card">
           <div class="card-header">
             Surah ${surah.number}: ${surah.name}
@@ -43,74 +43,18 @@ function displaySurahs(surahsData) {
           <div class="card-body">
             <p><strong>Bangla:</strong> ${surah.bangla}</p>
             <a href="details.html?name=${encodeURIComponent(surah.name)}" class="btn btn-primary">View Details</a>
+            <!-- puts the surah name in the URL to load the details page -->
           </div>
         </div>
       </div>
     `;
-    surahsListDiv.innerHTML += surahCard;
+    surahsListDiv.innerHTML += surahCard; // adds the new card to the page
   });
 }
 
-// get the 'name' value from the url (used on details.html)
-function getSurahNameFromURL() {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get('name');
+// this function filters surahs when you type in the search box
+function filterSurahs() {
+  const query = document.getElementById('search-input').value.toLowerCase(); // get the text user typed and lowercase it
+  const filtered = allSurahs.filter(s => s.name.toLowerCase().includes(query)); // only keep surahs that match
+  displaySurahs(filtered); // show the filtered ones
 }
-
-// fetch a specific surah's details
-function fetchSurahDetails(name) {
-  const surahDetailsUrl = `https://online-quran-api.p.rapidapi.com/surahs/${name}`;
-
-  fetch(surahDetailsUrl, {
-    method: 'GET',
-    headers: {
-      'x-rapidapi-key': apiKey,
-      'x-rapidapi-host': apiHost
-    }
-  })
-  .then(response => response.json())
-  .then(result => {
-    if (result && result.surah) {
-      displaySurahDetails(result);
-    } else {
-      alert("No details found for this Surah.");
-    }
-  })
-  .catch(error => {
-    alert("Error loading Surah details: " + error.message);
-    console.error(error);
-  });
-}
-
-// insert full surah info and verses into the page
-function displaySurahDetails(surah) {
-  const surahDetailsDiv = document.getElementById('surah-details');
-
-  surahDetailsDiv.innerHTML = `
-    <div class="card">
-      <div class="card-header">
-        Surah Details: ${surah.surahName}
-      </div>
-      <div class="card-body">
-        <p><strong>Total Verses:</strong> ${surah.verse}</p>
-        <p><strong>Audio Link:</strong> <a href="${surah.audio}" target="_blank">Listen</a></p>
-        <p><strong>Bismillah:</strong> ${surah.bismillah || "N/A"}</p>
-        <h4>Verses:</h4>
-        <ul>
-          ${surah.surah.map(v => `
-            <li>
-              <strong>Verse ${v.verse}:</strong>
-              <p><strong>Arabic:</strong> ${v.arabic}</p>
-              <p><strong>Bangla:</strong> ${v.bangla}</p>
-              <p><strong>English:</strong> ${v.english}</p>
-            </li>
-          `).join('')}
-        </ul>
-      </div>
-    </div>
-  `;
-}
-
-// auto-load details when on details.html
-const pageSurah = getSurahNameFromURL?.();
-if (pageSurah) fetchSurahDetails(pageSurah);

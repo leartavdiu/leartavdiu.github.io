@@ -1,36 +1,43 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Surah Details</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+  <title>Surah Details</title> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- loads bootstrap for styling -->
+
   <style>
-    body { font-family: 'Open Sans', sans-serif; background-color: #f7f7f7; color: #333; }
-    h1 { font-family: 'Roboto', sans-serif; margin-bottom: 20px; }
-    .footer { text-align: center; margin-top: 40px; padding: 20px 0; background-color: #0056b3; color: white; }
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #eef3f7;
+      color: #222;
+    }
+
+    h1 {
+      font-family: 'Trebuchet MS', sans-serif;
+      color: #005c99;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
+
 <body>
-  <div class="container mt-5">
+  <div class="container mt-5"> 
     <h1 class="text-center">Surah Details</h1>
-    <div id="surah-details" class="mt-4"></div>
+    <div id="surah-details" class="mt-4"></div> 
   </div>
-  <div class="footer">
-    <p>&copy; 2025 Online Quran API Project. All Rights Reserved.</p>
-  </div>
+
   <script>
-    // api configuration
     const apiKey = "5b631a2cf0msh65cb8ee0fe94bb5p19adcajsn0e2a5b1180a9";
     const apiHost = "online-quran-api.p.rapidapi.com";
 
-    // get surah name from url parameter
+    // gets the surah name from the link
     function getSurahNameFromURL() {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get('name');
+      const urlParams = new URLSearchParams(window.location.search); // grabs ?name=SurahName
+      return urlParams.get('name'); // just gives the name part
     }
 
-    // fetch surah details by name
+    // calls the api to get the surah info
     function fetchSurahDetails(name) {
       const surahDetailsUrl = `https://online-quran-api.p.rapidapi.com/surahs/${name}`;
       fetch(surahDetailsUrl, {
@@ -40,46 +47,45 @@
           'x-rapidapi-host': apiHost
         }
       })
-      .then(res => res.json())
+      .then(res => res.json()) // turns the response into usable data
       .then(result => {
-        // check if valid surah data was returned
-        if (result && result.surah) {
-          displaySurahDetails(result);
+        if (result && result.surah) { // checks if we got the surah back
+          displaySurahDetails(result); // shows it on the page
         }
       });
     }
 
-    // display surah name, audio, and all verses
+    // puts the info on the page
     function displaySurahDetails(surah) {
-      const surahDetailsDiv = document.getElementById('surah-details');
+      const surahDetailsDiv = document.getElementById('surah-details'); // where we show the info
       surahDetailsDiv.innerHTML = `
         <div class="card">
           <div class="card-header">
             Surah Details: ${surah.surahName}
           </div>
           <div class="card-body">
-            <p><strong>Total Verses:</strong> ${surah.verse}</p>
-            <p><strong>Audio Link:</strong> <a href="${surah.audio}" target="_blank">Listen</a></p>
-            <p><strong>Bismillah:</strong> ${surah.bismillah || "N/A"}</p>
+            <p><strong>Total Verses:</strong> ${surah.verse}</p> 
+            <p><strong>Audio Link:</strong> <a href="${surah.audio}" target="_blank">Listen</a></p> 
+            <p><strong>Bismillah:</strong> ${surah.bismillah || "N/A"}</p> 
             <h4>Verses:</h4>
             <ul>
-              ${surah.surah.map(v => `
+              ${surah.surah.map(v => ` // loops through all verses
                 <li>
                   <strong>Verse ${v.verse}:</strong>
                   <p><strong>Arabic:</strong> ${v.arabic}</p>
                   <p><strong>Bangla:</strong> ${v.bangla}</p>
                   <p><strong>English:</strong> ${v.english}</p>
                 </li>
-              `).join('')}
+              `).join('')} // joins all the verse blocks together so it shows right
             </ul>
           </div>
         </div>
       `;
     }
 
-    // run when the page loads
-    const surahName = getSurahNameFromURL();
-    if (surahName) fetchSurahDetails(surahName);
+    // runs the function when the page loads
+    const surahName = getSurahNameFromURL(); // gets the name from the URL
+    if (surahName) fetchSurahDetails(surahName); // if there’s a name, go get it
   </script>
 </body>
 </html>
