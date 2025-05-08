@@ -10,11 +10,11 @@ function loadSurahs() {
   fetch(surahsListUrl, {
     method: 'GET', 
     headers: {
-      'x-rapidapi-key': apiKey, // sends api key to get access
-      'x-rapidapi-host': apiHost // tells rapidapi which API im using
+      'x-rapidapi-key': apiKey, 
+      'x-rapidapi-host': apiHost 
     }
   })
-  .then(response => response.json()) // turns response into real JavaScript object
+  .then(response => response.json()) 
   .then(result => {
     // makes sure result has a surahList array
     if (result && result.surahList && Array.isArray(result.surahList)) {
