@@ -18,7 +18,7 @@ function loadSurahs() {
   .then(result => {
     // makes sure result has a surahList array
     if (result && result.surahList && Array.isArray(result.surahList)) {
-      allSurahs = result.surahList; // saves it in the global variable
+      allSurahs = result.surahList; // saves it in the array
       displaySurahs(allSurahs); // calls the function to actually show the surahs
     }
   })
